@@ -1,0 +1,137 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <span class="navbar-brand fw-bold fs-4">Voyages</span>
+    <div class="ms-auto">
+      <a routerLink="/ajouter-voyage" class="btn btn-light text-primary">
+        <i class="bi bi-plus-circle"></i> Ajouter un voyage
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Contenu principal -->
+<div class="container py-4">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5">
+    <h1 class="mb-3 mb-md-0 display-6 fw-bold text-black">Nos offres de voyage</h1>
+    
+    <div class="d-flex align-items-center">
+      <div class="btn-group shadow-sm" role="group">
+        <button class="btn btn-light" [class.active]="viewMode === 'list'" (click)="toggleView('list')" title="Vue liste">
+          <i class="bi bi-list-ul"></i>
+        </button>
+        <button class="btn btn-light" [class.active]="viewMode === 'grid'" (click)="toggleView('grid')" title="Vue grille">
+          <i class="bi bi-grid-3x3-gap"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vue Liste modernisée -->
+  <div *ngIf="viewMode === 'list'" class="card border-0 shadow-lg rounded-3 overflow-hidden">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="bg-light-primary text-white">
+          <tr>
+            <th class="ps-4 py-3">ID</th>
+            <th class="py-3">Agence</th>
+            <th class="py-3">Destination</th>
+            <th class="py-3">Offre</th>
+            <th class="text-end pe-4 py-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let voyage of voyages" class="border-bottom border-light">
+            <td class="ps-4 fw-semibold text-primary">{{ voyage.id }}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                
+                <span class="fw-medium">{{ voyage.nomAgence }}</span>
+              </div>
+            </td>
+            <td class="text-muted">{{ voyage.adresse }}</td>
+            <td>
+              <span class="badge bg-primary bg-opacity-10 text-primary py-2 px-3 rounded-pill">
+                {{ voyage.offre }}
+              </span>
+            </td>
+            <td class="text-end pe-4">
+              <div class="btn-group" role="group">
+                <button class="btn btn-sm btn-outline-primary rounded-pill px-3" 
+                        [routerLink]="['/modifier-voyage', voyage.id]" 
+                        title="Modifier">
+                  <i class="bi bi-pencil-fill"></i> Éditer
+                </button>
+                <button class="btn btn-sm btn-outline-danger rounded-pill px-3 ms-2" 
+                        (click)="deleteVoyage(voyage.id)" 
+                        title="Supprimer">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="voyages.length === 0">
+            <td colspan="5" class="text-center py-5">
+              <div class="d-flex flex-column align-items-center text-muted">
+                <i class="bi bi-binoculars fs-1 mb-3"></i>
+                <h5 class="fw-medium">Aucun voyage disponible</h5>
+                <p class="mb-0">Commencez par ajouter une nouvelle offre</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Vue Grille modernisée -->
+  <div *ngIf="viewMode === 'grid'" class="row g-4">
+    <div *ngFor="let voyage of voyages" class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm hover-shadow transition-all">
+        <div class="position-relative">
+          <img [src]="'http://localhost:3000/' + voyage.image" 
+               alt="Image voyage" 
+               class="card-img-top rounded-top" 
+               style="height: 200px; object-fit: cover;">
+        </div>
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <h5 class="card-title mb-0">{{ voyage.offre }}</h5>
+          </div>
+          <p class="text-muted mb-3">
+            <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+            {{ voyage.adresse }}
+          </p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="badge bg-primary bg-opacity-10 text-primary py-2 px-3 rounded-pill">
+              {{ voyage.nomAgence }}
+            </span>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-end">
+          <button class="btn btn-sm btn-outline-primary rounded-circle me-2" 
+                  [routerLink]="['/modifier-voyage', voyage.id]" 
+                  title="Modifier">
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger rounded-circle" 
+                  (click)="deleteVoyage(voyage.id)" 
+                  title="Supprimer">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="voyages.length === 0" class="col-12">
+      <div class="text-center py-5 my-5">
+        <div class="bg-light rounded-3 p-5 d-inline-block">
+          <i class="bi bi-compass display-4 text-muted mb-4"></i>
+          <h3 class="fw-medium mb-3">Aucune offre disponible</h3>
+          <button class="btn btn-primary rounded-pill px-4" routerLink="/ajouter-voyage">
+            <i class="bi bi-plus-lg me-2"></i>Créer une offre
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

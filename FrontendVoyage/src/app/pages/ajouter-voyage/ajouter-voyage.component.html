@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm border-0 mt-4">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">{{ isEditMode ? 'Modifier' : 'Ajouter' }} un voyage</h3>
+        </div>
+        
+        <div class="card-body p-4">
+          <form [formGroup]="voyageForm" (ngSubmit)="onSubmit()">
+            <!-- Nom de l'agence -->
+            <div class="mb-4">
+              <label for="nomAgence" class="form-label fw-bold">Nom de l'agence</label>
+              <input type="text" class="form-control form-control-lg" id="nomAgence" 
+                     formControlName="nomAgence"
+                     placeholder="Entrez le nom de l'agence"
+                     [class.is-invalid]="voyageForm.get('nomAgence')?.invalid && voyageForm.get('nomAgence')?.touched">
+              <div *ngIf="voyageForm.get('nomAgence')?.invalid && voyageForm.get('nomAgence')?.touched" 
+                   class="invalid-feedback d-block">
+                <i class="bi bi-exclamation-circle"></i> Le nom de l'agence est requis
+              </div>
+            </div>
+
+            <!-- Adresse -->
+            <div class="mb-4">
+              <label for="adresse" class="form-label fw-bold">Adresse</label>
+              <input type="text" class="form-control form-control-lg" id="adresse" 
+                     formControlName="adresse"
+                     placeholder="Entrez l'adresse complète"
+                     [class.is-invalid]="voyageForm.get('adresse')?.invalid && voyageForm.get('adresse')?.touched">
+              <div *ngIf="voyageForm.get('adresse')?.invalid && voyageForm.get('adresse')?.touched" 
+                   class="invalid-feedback d-block">
+                <i class="bi bi-exclamation-circle"></i> L'adresse est requise
+              </div>
+            </div>
+
+            <!-- Offre -->
+            <div class="mb-4">
+              <label for="offre" class="form-label fw-bold">Description de l'offre</label>
+              <textarea class="form-control form-control-lg" id="offre" rows="4"
+                        formControlName="offre"
+                        placeholder="Décrivez l'offre de voyage"
+                        [class.is-invalid]="voyageForm.get('offre')?.invalid && voyageForm.get('offre')?.touched"></textarea>
+              <div *ngIf="voyageForm.get('offre')?.invalid && voyageForm.get('offre')?.touched" 
+                   class="invalid-feedback d-block">
+                <i class="bi bi-exclamation-circle"></i> La description de l'offre est requise
+              </div>
+            </div>
+
+            <!-- Image -->
+             <div class="mb-4">
+                <label for="image" class="form-label fw-bold">Image</label>
+                <input type="file" class="form-control form-control-lg" id="image" (change)="onFileSelected($event)">
+                <div *ngIf="imageError" class="invalid-feedback d-block">
+                  <i class="bi bi-exclamation-circle"></i> {{ imageError }}
+                </div>
+              </div>
+
+            <!-- Boutons -->
+            <div class="d-flex justify-content-between mt-4">
+              <button type="button" class="btn btn-outline-secondary px-4" (click)="redirectAfterSubmit()">
+                <i class="bi bi-arrow-left"></i> Annuler
+              </button>
+              <button type="submit" class="btn btn-primary px-4" [disabled]="voyageForm.invalid">
+                <i class="bi" [class.bi-check-circle]="!isEditMode" [class.bi-pencil]="isEditMode"></i> 
+                {{ isEditMode ? ' Modifier' : ' Ajouter' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
