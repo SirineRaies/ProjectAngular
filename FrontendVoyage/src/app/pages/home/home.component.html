@@ -14,7 +14,7 @@
 <div class="container py-4">
   <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5">
     <h1 class="mb-3 mb-md-0 display-6 fw-bold text-black">Nos offres de voyage</h1>
-    
+
     <div class="d-flex align-items-center">
       <div class="btn-group shadow-sm" role="group">
         <button class="btn btn-light" [class.active]="viewMode === 'list'" (click)="toggleView('list')" title="Vue liste">
@@ -45,7 +45,7 @@
             <td class="ps-4 fw-semibold text-primary">{{ voyage.id }}</td>
             <td>
               <div class="d-flex align-items-center">
-                
+
                 <span class="fw-medium">{{ voyage.nomAgence }}</span>
               </div>
             </td>
@@ -57,13 +57,13 @@
             </td>
             <td class="text-end pe-4">
               <div class="btn-group" role="group">
-                <button class="btn btn-sm btn-outline-primary rounded-pill px-3" 
-                        [routerLink]="['/modifier-voyage', voyage.id]" 
+                <button class="btn btn-sm btn-outline-primary rounded-pill px-3"
+                        [routerLink]="['/modifier-voyage', voyage.id]"
                         title="Modifier">
                   <i class="bi bi-pencil-fill"></i> Éditer
                 </button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill px-3 ms-2" 
-                        (click)="deleteVoyage(voyage.id)" 
+                <button class="btn btn-sm btn-outline-danger rounded-pill px-3 ms-2"
+                        (click)="deleteVoyage(voyage.id)"
                         title="Supprimer">
                   <i class="bi bi-trash-fill"></i>
                 </button>
@@ -89,9 +89,9 @@
     <div *ngFor="let voyage of voyages" class="col-12 col-md-6 col-lg-4">
       <div class="card h-100 border-0 shadow-sm hover-shadow transition-all">
         <div class="position-relative">
-          <img [src]="'http://localhost:3000/' + voyage.image" 
-               alt="Image voyage" 
-               class="card-img-top rounded-top" 
+          <img [src]="'http://localhost:3000/' + voyage.image"
+               alt="Image voyage"
+               class="card-img-top rounded-top"
                style="height: 200px; object-fit: cover;">
         </div>
         <div class="card-body">
@@ -109,13 +109,13 @@
           </div>
         </div>
         <div class="card-footer bg-transparent border-top-0 d-flex justify-content-end">
-          <button class="btn btn-sm btn-outline-primary rounded-circle me-2" 
-                  [routerLink]="['/modifier-voyage', voyage.id]" 
+          <button class="btn btn-sm btn-outline-primary rounded-circle me-2"
+                  [routerLink]="['/modifier-voyage', voyage.id]"
                   title="Modifier">
             <i class="bi bi-pencil-fill"></i>
           </button>
-          <button class="btn btn-sm btn-outline-danger rounded-circle" 
-                  (click)="deleteVoyage(voyage.id)" 
+          <button class="btn btn-sm btn-outline-danger rounded-circle"
+                  (click)="deleteVoyage(voyage.id)"
                   title="Supprimer">
             <i class="bi bi-trash-fill"></i>
           </button>
